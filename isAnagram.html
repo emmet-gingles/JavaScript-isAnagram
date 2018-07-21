@@ -1,0 +1,90 @@
+<html>
+	<head>
+		<meta charset="windows-1252">
+		<title>Anagram</title>
+		<style>
+		.error{
+			color: red;
+			position: absolute;
+			left: 320px;
+		}
+		
+		input[type=text]{
+			position: absolute;
+			left: 150px;
+		}
+		
+		div{
+		    padding-top: 20px;
+			padding-bottom: 20px;
+		}
+		
+		#anagram{
+			font-weight: bold;
+		}
+		</style>
+		<script>
+		// function used to check if inputs are anagrams of each others
+		function isAnagram(){
+		    // get the words from input fields and convert to lower case
+			var word1 = document.getElementById("word1").value.toLowerCase();
+			var word2 = document.getElementById("word2").value.toLowerCase();
+			// call function to check both words are valid 
+			if(checkInput(word1, word2)){
+				// sort each word's letters in alphabethical order and compare them to see if they are the same 
+				if(word1.split("").sort().join("") == word2.split("").sort().join("")){
+					document.getElementById("anagram").innerHTML = "Is an anagram";
+				}
+				else{
+					document.getElementById("anagram").innerHTML = "Is not an anagram";
+				}
+			}
+			
+		}
+		
+		// function used to check that both inputs are valid strings
+		function checkInput(word1, word2){
+		    var validText = true;
+			// check if 1st word is empty - show error message if it is
+			if(word1 == ""){
+				document.getElementById("errorWord1").innerHTML = "Please enter some text";
+				validText = false;
+			}
+			// check 1st word contains only letters - if not show error message
+			else if (!/^[a-zA-Z]+$/.test(word1)){
+				document.getElementById("errorWord1").innerHTML = "Please enter only letters";
+				validText = false;
+			}
+			// 1st word is valid so clear any error messages
+			else{
+				document.getElementById("errorWord1").innerHTML = "";
+			}
+			if(word2 == ""){
+				document.getElementById("errorWord2").innerHTML = "Please enter some text";
+				validText = false;
+			}
+			else if (!/^[a-zA-Z]+$/.test(word2)){
+				document.getElementById("errorWord2").innerHTML = "Please enter only letters";
+				validText = false;
+			}
+			else{
+				document.getElementById("errorWord2").innerHTML = "";
+			}
+			return validText;
+		}
+		</script>
+	</head>
+	<body>
+		<div>Enter two words to see if they are anagrams of each other</div>
+		<label>Enter 1st word </label>
+		<input type="text" id="word1">
+		<span id="errorWord1" class="error"></span>
+		<br><label>Enter 2nd word</label>
+		<input type="text" id="word2">
+		<span id="errorWord2" class="error"></span>
+		<div>
+			<label id="anagram"></label>
+			<br><button onclick="isAnagram()">Check Anagram</button>
+		</div>
+	</body>
+</html>
